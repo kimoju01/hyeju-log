@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>로그인</title>
+</head>
+<body>
+<h2>로그인</h2>
+<div class="my-5">
+    <form id="loginForm" th:action="@{/login}" method="post">
+        <div class="form-floating">
+            <input type="text" class="form-control" id="username" required>
+            <label for="username">Username</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="password" required>
+            <label for="password">Password</label>
+        </div>
+        <br />
+    </form>
+    <!-- Submit Button-->
+    <div class="button-group">
+        <button id="submitButton" type="submit" form="loginForm">로그인</button>
+        <a th:href="@{/userregform}"><button id="regButton" type="button">회원가입</button></a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<!--<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+</head>
+<body>
+    <div>
+        <a th:href="@{/loginform}">로그인</a>
+    </div>
+
+<!--&lt;!&ndash; 로그인한 사용자면 &ndash;&gt;-->
+<!--<div sec:authorize="isAuthenticated()">-->
+<!--    <p>안녕하세요. <span sec:authentication="name"></span>님😊</p>-->
+<!--    <a href="/info">내 정보보기</a><br>-->
+<!--    <a href="/logout">로그아웃</a>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 로그인 안 한 사용자면(익명 사용자. 인증이 안 된 사용자) &ndash;&gt;-->
+<!--<div sec:authorize="isAnonymous()">-->
+<!--    <a href="/loginform">로그인</a>-->
+<!--</div>-->
+</body>
+</html>
