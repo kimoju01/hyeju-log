@@ -1,0 +1,7 @@
+### username duplicate check
+GET http://localhost:8080/api/users/check-username?username=qqq
+Accept: application/json
+
+### email duplicate check
+GET http://localhost:8080/api/users/check-email?email=qqq@test.com
+Accept: application/json

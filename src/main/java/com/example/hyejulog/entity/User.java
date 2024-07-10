@@ -30,7 +30,7 @@ public class User implements UserDetails {
     private String username;
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
-    @Size(min = 8, max = 20, message = "비밀번호는 최소 8자에서 최대 20자 사이만 허용됩니다.")
+//    @Size(min = 8, max = 20, message = "비밀번호는 최소 8자에서 최대 20자 사이만 허용됩니다.")
     @Column(nullable = false, length = 100)
     private String password;
 
