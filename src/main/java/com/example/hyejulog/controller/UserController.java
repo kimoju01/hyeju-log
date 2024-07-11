@@ -69,11 +69,5 @@ public class UserController {
         return "users/login";
     }
 
-    // 로그인 처리
-    @PostMapping("/login")
-    public String login() {
-        return "redirect:/";
-    }
-
 
 }

@@ -17,12 +17,6 @@ public class WebSecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
 
-//    @Bean
-//    public WebSecurityCustomizer configure() {
-//        return (web) -> web.ignoring()
-//                .requestMatchers(new AntPathRequestMatcher("/static/**"));
-//    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -32,7 +26,9 @@ public class WebSecurityConfig {
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/loginform")
+                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/")
+                        .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -41,7 +37,6 @@ public class WebSecurityConfig {
                 .userDetailsService(userDetailsService)
                 .csrf(csrf -> csrf.disable())
                 .build();
-
     }
 
     @Bean
