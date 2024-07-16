@@ -1,7 +1,7 @@
 package com.example.hyejulog.service;
 
-import com.example.hyejulog.entity.Role;
-import com.example.hyejulog.entity.User;
+import com.example.hyejulog.domain.Role;
+import com.example.hyejulog.domain.User;
 import com.example.hyejulog.repository.RoleRepository;
 import com.example.hyejulog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

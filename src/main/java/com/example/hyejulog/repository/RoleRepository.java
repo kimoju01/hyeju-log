@@ -1,6 +1,6 @@
 package com.example.hyejulog.repository;
 
-import com.example.hyejulog.entity.Role;
+import com.example.hyejulog.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

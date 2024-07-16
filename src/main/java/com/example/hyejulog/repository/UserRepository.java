@@ -1,6 +1,6 @@
 package com.example.hyejulog.repository;
 
-import com.example.hyejulog.entity.User;
+import com.example.hyejulog.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

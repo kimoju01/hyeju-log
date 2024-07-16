@@ -1,6 +1,6 @@
 package com.example.hyejulog.controller;
 
-import com.example.hyejulog.entity.User;
+import com.example.hyejulog.domain.User;
 import com.example.hyejulog.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

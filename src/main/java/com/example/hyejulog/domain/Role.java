@@ -1,9 +1,7 @@
-package com.example.hyejulog.entity;
+package com.example.hyejulog.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "roles")

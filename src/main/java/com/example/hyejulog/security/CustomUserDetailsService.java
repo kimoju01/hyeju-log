@@ -1,6 +1,5 @@
 package com.example.hyejulog.security;
 
-import com.example.hyejulog.entity.User;
 import com.example.hyejulog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
