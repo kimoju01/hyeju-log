@@ -5,3 +5,12 @@ Accept: application/json
 ### email duplicate check
 GET http://localhost:8080/api/users/check-email?email=qqq@test.com
 Accept: application/json
+
+### 토큰 발급 테스트
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "ccc",
+  "password": "1234"
+}
