@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,28 @@ public class UserRestController {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenizer jwtTokenizer;
     private final RefreshTokenService refreshTokenService;
+
+    // 회원가입 처리
+    @PostMapping("/api/users/userreg")
+    public ResponseEntity<?> userReg(@Valid @RequestBody User user,
+                          BindingResult bindingResult) {
+        // @RequestBody는 JSON -> User 객체로 변환
+
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+
+        if (userService.findByUsername(user.getUsername()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용 중인 아이디입니다.");
+        }
+
+        if (userService.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용 중인 이메일입니다."); // 409 Conflict와 함께 메시지 반환
+        }
+
+        userService.registerUser(user);
+        return ResponseEntity.ok("회원가입이 완료되었습니다.");
+    }
 
     @GetMapping("/api/users/check-username")
     public ResponseEntity<Map<String, Boolean>> checkUsername(@RequestParam("username") String username) {

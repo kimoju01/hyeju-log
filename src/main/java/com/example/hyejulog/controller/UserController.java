@@ -37,32 +37,6 @@ public class UserController {
         return "users/userregform";
     }
 
-    // 회원가입 처리
-    @PostMapping("/userreg")
-    public String userReg(@Valid @ModelAttribute User user,
-                          BindingResult bindingResult,
-                          Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "users/userregform";
-        }
-
-        if (userService.findByUsername(user.getUsername()).isPresent()) {
-            bindingResult.rejectValue("username", "duplicated", "이미 사용 중인 아이디입니다.");
-            model.addAttribute("usernameError", "이미 사용 중인 아이디입니다.");
-            return "users/error";
-        }
-
-        if (userService.findByEmail(user.getEmail()).isPresent()) {
-            bindingResult.rejectValue("email", "duplicated", "이미 사용 중인 이메일입니다.");
-            model.addAttribute("emailError", "이미 사용 중인 이메일입니다.");
-            return "users/error";
-        }
-
-        userService.registerUser(user);
-        return "redirect:/welcome";
-    }
-
     // 로그인 폼
     @GetMapping("/loginform")
     public String loginForm() {
