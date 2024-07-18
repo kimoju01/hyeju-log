@@ -21,10 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -43,15 +40,17 @@ public class UserRestController {
         // @RequestBody는 JSON -> User 객체로 변환
 
         if (bindingResult.hasErrors()) {
+            // 유효성 검사 오류가 있을 경우, 오류 메시지를 JSON 형식으로 클라이언트에 반환
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
 
         if (userService.findByUsername(user.getUsername()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용 중인 아이디입니다.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap("message", "이미 사용 중인 아이디입니다."));
+
         }
 
         if (userService.findByEmail(user.getEmail()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용 중인 이메일입니다."); // 409 Conflict와 함께 메시지 반환
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap("message", "이미 사용 중인 이메일입니다."));
         }
 
         userService.registerUser(user);
