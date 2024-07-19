@@ -40,6 +40,8 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.3.0'
+
     // jwt & json
     // jwts
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
