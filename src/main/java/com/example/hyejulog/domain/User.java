@@ -54,4 +54,8 @@ public class User {
     )
     private Set<Role> roles;
 
+    // User 1 : 1 Blog. 블로그가 삭제되면 사용자도 삭제된다. 사용자는 항상 블로그를 가져야 한다.
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Blog blog;
+
 }
