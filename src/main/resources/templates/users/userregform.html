@@ -1,93 +1,63 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>회원가입</title>
-    <script
-            src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-            crossorigin="anonymous"></script>
 </head>
 <body>
-<h2>회원가입</h2>
-<div class="my-5">
-    <form id="userRegForm">
-        <div class="form-floating">
-            <input type="text" class="form-control" id="username" name="username" required>
-            <label for="username">Username</label>
-            <div class="form-text" id="usernameError"></div>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="password" name="password" required>
-            <label for="password">Password</label>
-            <div class="form-text" id="passwordError"></div>
-        </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="name" name="name" required>
-            <label for="name">Name</label>
-            <div class="form-text" id="nameError"></div>
-        </div>
-        <div class="form-floating">
-            <input type="email" class="form-control" id="email" name="email" required>
-            <label for="email">Email</label>
-            <div class="form-text" id="emailError"></div>
-        </div>
-        <br />
-    </form>
-    <!-- Submit Button-->
-    <div class="button-group">
-        <button class="btn btn-primary text-uppercase" id="submitButton">Submit</button>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function() { // 문서가 준비되면 실행
-        $('#submitButton').click(function(event) { // 제출 버튼 클릭 이벤트 핸들러
-            event.preventDefault(); // 기본 동작 중단
-
-            var user = { // 사용자 객체 생성
-                username: $('#username').val(),
-                password: $('#password').val(),
-                name: $('#name').val(),
-                email: $('#email').val()
-            };
-
-            $.ajax({
-                type: 'POST', // POST 요청
-                url: '/api/users/userreg', // 요청 URL
-                contentType: 'application/json', // 요청 데이터 형식
-                data: JSON.stringify(user), // JSON 형식으로 변환해 데이터 전송
-                success: function(response) { // 성공 콜백
-                    alert('회원가입이 완료되었습니다.'); // 성공 메시지
-                    window.location.href = '/welcome'; // 성공 후 리다이렉트
-                },
-                error: function(xhr) { // 오류 콜백
-                    // 서버에서 전송한 데이터는 xhr.responseText에 담김.
-                    var response = JSON.parse(xhr.responseText); // 오류 응답 파싱
-                    if (xhr.status === 400) { // 400 Bad Request일 경우 (유효성 검사 오류가 있을 경우)
-                        response.forEach(error => { // 각 오류 처리
-                            if (error.field === 'username') {
-                                $('#usernameError').text(error.defaultMessage); // 사용자 이름 오류 메시지 설정
-                            } else if (error.field === 'password') {
-                                $('#passwordError').text(error.defaultMessage); // 비밀번호 오류 메시지 설정
-                            } else if (error.field === 'name') {
-                                $('#nameError').text(error.defaultMessage); // 이름 오류 메시지 설정
-                            } else if (error.field === 'email') {
-                                $('#emailError').text(error.defaultMessage); // 이메일 오류 메시지 설정
-                            }
-                        });
-                    } else if (xhr.status === 409) { // 409 Conflict일 경우 (중복 아이디, 이메일일 경우)
-                        alert(response.message);
-                    } else {
-                        alert('회원가입 중 오류가 발생했습니다.');
-                    }
-                }
-            });
-        });
-    });
-</script>
+    <th:block layout:fragment="content">
+        <!-- Page Header-->
+        <header class="masthead" th:style="'background-image: url(assets/img/loginform-bg.jpg)'">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>Join !</h1>
+                            <span class="subheading">🌴</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="my-5">
+                            <form id="userRegForm">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                    <label for="username">Username</label>
+                                    <div class="form-text" id="usernameError"></div>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <label for="password">Password</label>
+                                    <div class="form-text" id="passwordError"></div>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <label for="name">Name</label>
+                                    <div class="form-text" id="nameError"></div>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <label for="email">Email</label>
+                                    <div class="form-text" id="emailError"></div>
+                                </div>
+                                <br/>
+                                <!-- Submit Button-->
+                                <div class="button-group">
+                                    <button class="btn btn-primary text-uppercase" id="regSubmitButton">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </th:block>
 </body>
 </html>

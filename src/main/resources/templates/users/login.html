@@ -1,68 +1,56 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>로그인</title>
-    <!-- jQuery CDN 추가 -->
-    <script
-            src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-            crossorigin="anonymous"></script>
 </head>
 <body>
-<h2>로그인</h2>
-<div class="my-5">
-    <!--    <form id="loginForm" th:action="@{/login}" method="post">-->
-    <form id="loginForm">
-        <div class="form-floating">
-            <input type="text" class="form-control" id="username" name="username" required>
-            <label for="username">Username</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="password" name="password" required>
-            <label for="password">Password</label>
-        </div>
-        <br />
-        <!-- Submit Button-->
-        <div class="button-group">
-            <!-- JavaScript를 사용하여 클릭 이벤트 처리 -->
-            <button id="submitButton" type="button">로그인</button>
-    <!--        <button id="submitButton" type="submit" form="loginForm">로그인</button>-->
-            <a th:href="@{/userregform}"><button id="regButton" type="button">회원가입</button></a>
-        </div>
-    </form>
-</div>
-
-<script type="text/javascript">
-    // Submit Button 클릭 시 처리할 함수
-    $('#submitButton').click(function() {
-        // 폼 데이터를 JSON 형식으로 변환
-        var formData = {
-            username: $('#username').val(),
-            password: $('#password').val()
-        };
-
-        // AJAX 요청 설정
-        $.ajax({
-            type: 'POST',
-            url: '/login',  // 요청 보낼 URL
-            contentType: 'application/json',  // 요청 본문의 타입 설정
-            data: JSON.stringify(formData),  // JSON으로 변환한 데이터를 문자열로 설정
-            success: function(response) {
-                // 성공적으로 응답을 받았을 때 처리할 로직
-                console.log('로그인 성공:', response);
-                window.location.href = '/';
-            },
-            error: function(xhr, status, error) {
-                // 요청 실패 시 처리할 로직
-                console.error('로그인 실패:', error);
-                alert('로그인에 실패했습니다. 다시 시도해주세요.');
-            }
-        });
-    });
-</script>
+    <th:block layout:fragment="content">
+        <!-- Page Header-->
+        <header class="masthead" th:style="'background-image: url(assets/img/loginform-bg.jpg)'">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>Login</h1>
+                            <span class="subheading">🌴</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="my-5">
+                            <form id="loginForm">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                    <label for="username">Username</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <label for="password">Password</label>
+                                </div>
+                                <br/>
+                                <!-- Submit Button-->
+                                <div class="button-group">
+                                    <!-- JavaScript를 사용하여 클릭 이벤트 처리 -->
+                                    <button class="btn btn-primary text-uppercase" id="loginSubmitButton" type="button">로그인
+                                    </button>
+                                    <a th:href="@{/userregform}">
+                                        <button class="btn btn-success text-uppercase" id="regButton" type="button">회원가입</button>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </th:block>
 </body>
 </html>

@@ -1,20 +1,66 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
 </head>
 <body>
-    <div sec:authorize="isAuthenticated()">
-        <p>안녕하세요. <span sec:authentication="name"></span>님!</p>
-        <p>당신의 권한은 <span sec:authentication="principal.authorities"></span>입니다.</p>
-        <a th:href="@{/logout}">로그아웃</a>
-    </div>
-    <div sec:authorize="!isAuthenticated()">
-        <a th:href="@{/loginform}">로그인</a>
-    </div>
+    <th:block layout:fragment="content">
+        <!-- Page Header-->
+        <header class="masthead" th:style="'background-image: url(assets/img/index-bg.jpg)'">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>Posts</h1>
+                            <span class="subheading">🍋</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div th:if="${message}" class="alert alert-success" role="alert" th:text="${message}"
+                         style="font-size: 0.85rem; padding: 0.5rem;"></div>
+                    <a th:href="@{/writeform}" class="btn btn-success text-uppercase" id="writeButton">Write</a>
+                    <!-- Post preview-->
+                    <div class="post-preview" th:each="post : ${posts}">
+                        <a th:href="@{/view(id=${post.id})}">
+                            <h2 class="post-title" th:text="${post.title}">제목</h2>
+                            <h3 class="post-subtitle">Posted by <span th:text="${post.blog.user.name}"></span></h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted on <span th:text="${#temporals.format(post.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
+                        </p>
+                        <!-- Divider -->
+                        <hr class="my-4"/>
+                    </div>
+                    <!-- Pager-->
+                    <div th:if="${posts.totalPages > 1}">
+                        <ul class="justify-content-center pagination">
+                            <li class="page-item px-2 pb-5" th:each="i : ${#numbers.sequence(1, posts.totalPages)}"
+                                style="font-size: 22px">
+                                <a th:href="@{/(page=${i})}" th:text="${i}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--    <div th:each="post : ${postPage.content}">-->
+        <!--        <h2 th:text="${post.title}"></h2>-->
+        <!--        <p th:text="${post.content}"></p>-->
+        <!--    </div>-->
+
+        <!--    <div>-->
+        <!--        <a th:if="${postPage.hasPrevious()}" th:href="@{/posts(page=${postPage.number - 1})}">Previous</a>-->
+        <!--        <span th:text="${postPage.number + 1}">1</span>-->
+        <!--        <a th:if="${postPage.hasNext()}" th:href="@{/posts(page=${postPage.number + 1})}">Next</a>-->
+        <!--    </div>-->
+    </th:block>
 </body>
 </html>

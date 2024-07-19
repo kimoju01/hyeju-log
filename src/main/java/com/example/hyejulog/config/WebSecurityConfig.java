@@ -3,7 +3,6 @@ package com.example.hyejulog.config;
 import com.example.hyejulog.jwt.exception.CustomAuthenticationEntryPoint;
 import com.example.hyejulog.jwt.filter.JwtAuthenticationFilter;
 import com.example.hyejulog.jwt.util.JwtTokenizer;
-import com.example.hyejulog.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,30 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-//    private final CustomUserDetailsService userDetailsService;
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/", "/api/users/**","/userregform", "/userreg", "/loginform", "/welcome").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(formLogin -> formLogin
-//                        .loginPage("/loginform")
-//                        .loginProcessingUrl("/login")
-//                        .defaultSuccessUrl("/")
-//                        .permitAll()
-//                )
-//                .logout(logout -> logout
-//                        .logoutUrl("/logout")
-//                        .logoutSuccessUrl("/")
-//                )
-//                .userDetailsService(userDetailsService)
-//                .csrf(csrf -> csrf.disable())
-//                .build();
-//    }
-
     private final JwtTokenizer jwtTokenizer; // JWT 토큰 생성 및 파싱을 위한 유틸 클래스
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint; // 인증 실패 시 커스텀 예외 처리를 위한 클래스
 
@@ -57,7 +32,8 @@ public class WebSecurityConfig {
         // SecurityFilterChain을 리턴하도록 빈으로 등록
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/api/users/**", "/userregform", "/userreg", "/loginform", "/login", "/refreshToken", "/welcome").permitAll() // 특정 경로에 대한 접근 허용
+                        .requestMatchers("/assets/**", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/api/users/**", "/api/posts", "/userregform", "/userreg", "/loginform", "/login", "/refreshToken", "/welcome").permitAll() // 특정 경로에 대한 접근 허용
                         .anyRequest().authenticated())  // 그 외 모든 요청은 인증 필요
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtTokenizer),
