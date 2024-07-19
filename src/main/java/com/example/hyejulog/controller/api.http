@@ -11,6 +11,16 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "username": "ccc",
+  "username": "aaa",
   "password": "1234"
+}
+
+### 게시글 등록 테스트
+POST http://localhost:8080/api/posts/write
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYWFAdGVzdC5jb20iLCJ1c2VybmFtZSI6ImFhYSIsIm5hbWUiOiJhYWEgbmFtZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTcyMTM2ODMyNywiZXhwIjoxNzIxMzY4Mzg3fQ.BSn7gFzj5IgRNJEQiWJpO2_CejMeB2gd6gSCeOt3LSQ
+
+{
+  "title": "hi",
+  "content": "안녕"
 }
